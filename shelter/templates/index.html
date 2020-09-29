@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>Shelter Home</title>{% endblock %}
+
+{% block content %}
+    <h1>Shelter Home</h1>
+
+    <p>Welcome to <em>Shelter</em>, a website with different shelters.</p>
+
+    <p>This website works with these shelters.</p>
+    {% if shelter_list %}
+        <ul>
+
+            {% for shelter in shelter_list %}
+                <li><a href="{{ shelter.get_absolute_url }}">{{ shelter }}</a></li>
+            {% endfor %}
+        </ul>
+
+        {% if user.client.is_admin %}
+            <a href="{% url 'shelter_create' %}"> Create Shelter</a>
+        {% endif %}
+    {% else %}
+        <p>There are no authors available.</p>
+        {% if user.client.is_admin %}
+            <a href="{% url 'shelter_create' %}"> Create Shelter</a>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Shelter: {{ shelter }}</h1>
+
+        <h4>Animals</h4>
+
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Special Signs</th>
+            </tr>
+            {% for animal in shelter.animal_set.all %}
+                <tr>
+                    <td>
+                        <div><a href="{{ animal.get_absolute_url }}">{{ animal.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div>{{ animal.special_signs }}</div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        {% if user.client.is_admin or user.client.is_user %}
+            <hr/>
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'animal_create' %}">Create Animal</a></li>
+            </ul>
+        {% endif %}
+    {% else %}
+        <h1>Please log in</h1>
+    {% endif %}
+{% endblock %}

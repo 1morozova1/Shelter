@@ -1,0 +1,7 @@
+db.sqlite3
+/shelter/migrations/
+/venv/
+/.idea
+config.py
+__pycache__
+/animals/settings.py

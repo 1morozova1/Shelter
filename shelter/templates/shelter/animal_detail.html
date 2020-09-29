@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        <h1>Name: {{ animal.name }}</h1>
+
+        <p><strong>Shelter:</strong> <a
+                href="{{ animal.shelter.get_absolute_url }}">{{ animal.shelter }}</a>
+        </p>
+        <p><strong>Age:</strong> {{ animal.age }}</p>
+        <p><strong>Date of arrival:</strong> {{ animal.date_of_arrival }}</p>
+        <p><strong>Weight:</strong> {{ animal.weight }}</p>
+        <p><strong>Height:</strong> {{ animal.height }}</p>
+        <p><strong>Special Signs:</strong> {{ animal.special_signs }}</p>
+
+
+        {% if user.client.is_admin %}
+            <div><a href="{% url 'animal_update' animal.pk %}">Upgrade
+                Animal</a></div>
+            <div><a href="{% url 'animal_delete' animal.pk %}">Delete
+                Animal</a></div>
+        {% endif %}
+
+        {% if user.client.is_user %}
+            <div><a href="{% url 'animal_update' animal.pk %}">Upgrade
+                Animal</a></div>
+        {% endif %}
+    {% else %}
+        <h1>Please log in</h1>
+    {% endif %}
+{% endblock %}
